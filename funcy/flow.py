@@ -124,7 +124,7 @@ def retry(call, tries, errors=Exception, timeout=0, filter_errors=None, exp=1, c
        Retries only on specified errors.
        Sleeps timeout or timeout(attempt) seconds between tries.
        Interval can grow exponentially up to cap value.
-       Interval can make random offset according to jitter."""
+       Interval can make random offset according to jitter_amp."""
     errors = _ensure_exceptable(errors)
     for attempt in range(tries):
         try:

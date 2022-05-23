@@ -153,6 +153,7 @@ def test_retry_filter():
     with pytest.raises(MyError):
         retry_deco(_make_failing())()
 
+
 def _make_failing(n=1, e=MyError):
     calls = []
 
