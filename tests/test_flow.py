@@ -134,7 +134,7 @@ def test_retry_timeout_jitter(monkeypatch):
     timeouts = []
     monkeypatch.setattr('time.sleep', timeouts.append)
 
-    retry_deco = retry(5, MyError, timeout=1, jitter=0.5)
+    retry_deco = retry(5, MyError, timeout=1, jitter_amp=0.5)
     with pytest.raises(MyError):
         retry_deco(_make_failing(n=5))()
     assert all([0.5 <= t <= 2.0 for t in timeouts])

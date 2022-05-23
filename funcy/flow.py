@@ -119,7 +119,7 @@ def reraise(errors, into):
 
 
 @decorator
-def retry(call, tries, errors=Exception, timeout=0, filter_errors=None, exp=1, cap=inf, jitter=1):
+def retry(call, tries, errors=Exception, timeout=0, filter_errors=None, exp=1, cap=inf, jitter_amp=1):
     """Makes decorated function retry up to tries times.
        Retries only on specified errors.
        Sleeps timeout or timeout(attempt) seconds between tries.
@@ -139,7 +139,7 @@ def retry(call, tries, errors=Exception, timeout=0, filter_errors=None, exp=1, c
             else:
                 timeout_value = timeout(attempt) if callable(timeout) else timeout
                 timeout_value *= exp ** attempt
-                timeout_value *= uniform(float(1/jitter), float(jitter))
+                timeout_value *= uniform(float(1/jitter_amp), float(jitter_amp))
                 timeout_value = min(timeout_value, cap)
                 if timeout_value > 0:
                     time.sleep(timeout_value)
